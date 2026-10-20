@@ -1,0 +1,12 @@
+{
+  "name": "claude-video-editing-skills",
+  "description": "Claude Code skills for hype edits and AI music videos, written from three videos that shipped.",
+  "owner": { "name": "Zeal Caiden" },
+  "plugins": [
+    {
+      "name": "video-editing-skills",
+      "source": "./",
+      "description": "Find clips by what people said, cut hype edits and AI music videos to the beat, check renders, and write the recipe."
+    }
+  ]
+}

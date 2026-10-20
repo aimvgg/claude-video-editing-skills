@@ -1,0 +1,27 @@
+# AIMV recipe folder file. The video id is <x-handle>--<slug>.
+# The same fields as the entry's made_with, process and audio, with `file` paths into this repo in place of
+# `source` URLs. Every id is an AIMV id from the generators repo, or a proposed one named in the step's `did`.
+made_with:
+  agent: claude-code
+  models: [ ]            # at least one model id
+  frameworks: [ ]
+process:
+  prompts:               # every prompt longer than a line
+    - stage: stills      # stills, motion, song, code or context
+      tool: openrouter   # optional: the tool or model the prompt went to
+      file: prompts/1-stills.md
+      as: written        # written (verbatim) or recalled (rebuilt from memory)
+  steps:
+    - part: research     # idea, research, lyrics, song, vocals, stills, motion, lip-sync, graphics, 3d, beat-map, edit, render or agent-run
+      tool: arcmira      # optional: tool or model; it must also be in made_with (the agent counts) or audio
+      did: One sentence, 140 characters or fewer.
+      file: sources.json # the file in this repo that shows it
+audio:
+  tracks:
+    - title: Song title
+      artist: Artist     # an existing song is source: existing with its artist; never paste its lyrics
+      role: music
+      source: existing
+time_spent: Two days, 16 to 18 Oct 2026
+cost: The logged generation and GPU spend, in dollars, with where the log is
+code: { files: [ ], license: Apache-2.0 }   # the scripts a reader should open first

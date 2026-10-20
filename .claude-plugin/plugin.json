@@ -1,0 +1,10 @@
+{
+  "name": "video-editing-skills",
+  "description": "Skills for hype edits and AI music videos. Find the second someone said a line and cut it between words, remake a reference edit shot for shot, cut footage on the beat, check the render, and write up the recipe.",
+  "version": "0.2.0",
+  "author": { "name": "Zeal Caiden" },
+  "homepage": "https://github.com/zealous1/claude-video-editing-skills",
+  "repository": "https://github.com/zealous1/claude-video-editing-skills",
+  "license": "Apache-2.0",
+  "keywords": ["video-editing", "hype-edit", "hype-video", "ai-music-video", "youtube-clips", "ffmpeg", "aimv", "arcmira", "arcmira-mcp", "mcp"]
+}
