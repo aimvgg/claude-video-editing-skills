@@ -195,6 +195,9 @@ def render(doc):
 
 
 def main(argv):
+    if "-h" in argv or "--help" in argv:
+        print(__doc__.strip())
+        return 0
     check = "--check" in argv
     argv = [a for a in argv if a != "--check"]
     aimv_root = None

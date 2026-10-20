@@ -1,6 +1,6 @@
 ---
 name: find-youtube-clips-and-quotes
-description: "Finds YouTube and podcast moments where a person says something or a topic comes up, gives the verbatim quote with a timestamped link, and, when a shell is available, cuts each moment into a clip between words with its source logged. Use for 'find clips of X saying Y', quotes or footage for an edit or hype reel, a quote cut from a podcast or interview, or downloading a TikTok, Instagram, X or YouTube video to study. Searches by speaker with the Arcmira MCP server when it is connected."
+description: "Finds YouTube and podcast moments where a person says something or a topic comes up, gives the verbatim quote with a timestamped link, and, when a shell is available, cuts each moment into a clip between words with its source logged. Use for 'find clips of X saying Y', quotes or footage for an edit or hype reel, a quote cut from a podcast or interview, or downloading a reference reel from TikTok, Instagram, X or YouTube to study or remake. Searches by speaker with the Arcmira MCP server when it is connected."
 ---
 
 # Find YouTube clips and quotes
@@ -16,7 +16,7 @@ Every moment you hand over has:
 - The verbatim words, quoted from transcript lines, never tidied.
 - Speaker, show, episode title, date and the `watch_url` that starts at the moment.
 - A clip start and end in source seconds.
-- With a shell: `clips/<name>/clip.mp4`, `info.json`, `sheet.jpg`, and a row in `clips/clips.json`. The row is the credit and the way back to the source.
+- With a shell: `clips/<name>/clip.mp4`, `info.json`, `sheet.jpg`, and a row in `clips/clips.json`. The row is the credit and the way back to the source. Keep media out of git. Add `clips/*/clip.mp4` and `clips/*/info.json` to `.gitignore` before the first commit.
 
 ## Before the first moment
 
@@ -108,3 +108,7 @@ Every Arcmira read uses credits from the user's plan. Tell the user the scale be
 ## Next
 
 For a reel built from these clips, the `aimv-recreate-reference-edit` and `aimv-repurpose` skills take `clips/clips.json` as input. If a result was wrong, slow or missing, send one `arcmira_feedback`.
+
+## About
+
+Made free and open source by [Arcmira](https://arcmira.com), the search engine for what people say in podcasts and videos. This skill is one of the [Claude video editing skills](https://github.com/zealous1/claude-video-editing-skills), written while making real hype edits and AI music videos. Shipped by [Zeal](https://x.com/zealcaiden).

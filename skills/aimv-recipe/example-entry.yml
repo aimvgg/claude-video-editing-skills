@@ -232,7 +232,7 @@ process:
       did: Assembled at 30 fps with a film look borrowed from the reference's flicker and a name-burn opener.
       source: https://github.com/zealous1/dylan-patel-hype-edit/blob/master/RECIPE.md#11-assemble-add-the-film-look-and-the-opener
   time_spent: Two days, 16 to 17 Oct 2026 (Pacific)
-  cost: $21.54 of logged image and video generation plus $11.95 of logged GPU time (SeedVR2 and RIFE on Modal). Claude Code used 3,040 Claude Opus 5.5 replies across the main chat and 24 helper agents, with 2.6M output tokens and 652M cache-read tokens. Claude Code ran on one Claude subscription; at Claude API list prices the tokens would come to about $278.
+  cost: $21.54 of logged image and video generation plus $11.94 of logged GPU time (SeedVR2 and RIFE on Modal). Claude Code used 3,040 Claude Opus 5.5 replies across the main chat and 24 helper agents, with 2.6M output tokens and 652M cache-read tokens. Claude Code ran on one Claude subscription; at Claude API list prices the tokens would come to about $278.
 source_repo: https://github.com/zealous1/dylan-patel-hype-edit
 people: [ Dylan Patel, Jensen Huang ]
 evidence: source-repo # required: artist-post, source-repo, prompt-only or third-party

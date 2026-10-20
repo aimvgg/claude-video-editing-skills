@@ -46,4 +46,4 @@ A minimal row:
 2. **Every model and tool, by layer.** A table of runs, cost, outcome and SOTA, then one line per row with its evidence, its dated SOTA source when it has one, and its verdict.
 3. **Cost,** from `cost_notes`, or the logged total.
 
-The three worked examples show it filled: a remake with heavy generation (Dylan Patel hype edit), no generation at all (REK robot fight hype reel), and an original with a generated song (techno-optimist AI music video).
+The Dylan Patel hype edit shows it filled, for a remake with heavy generation. It is the only public example so far. Two more guides are coming.

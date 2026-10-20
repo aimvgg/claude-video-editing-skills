@@ -15,11 +15,12 @@ Run every command from the user's project folder. `${CLAUDE_SKILL_DIR}` is this 
 - **Rights.** Say once that a remake of broadcast, film or music-video footage carries copyright risk on every platform. Some video models refuse it on output (see Traps).
 - **Models.** Before choosing a model, check the current leaders on https://aimv.gg/generators. The models named here won in October 2026; newer ones may beat them.
 - **Access.** Generation runs through a hosted API such as OpenRouter (`OPENROUTER_API_KEY`). A privacy setting on the provider account can block some video and image models. Read the provider's error, and let the user decide any account change.
+- **Tools.** Besides `ffmpeg` and Node, you need Python with librosa, demucs, opencv-python-headless and mediapipe, headless Chrome, an R2 or S3 bucket for signed URLs, and a Modal account for upscales. Tell the user what is missing before step 1.
 - **Budget.** Generation bills the user's provider account. Before the first paid call, list each slot you will generate with its model and price, give the total, and wait for a yes. Keep a running total in `costs.json` in the project. Stop and ask again before you pass the agreed amount. For scale, the Dylan Patel reel spent $21.54 on image and video generation and $11.94 on GPU time.
 
 ## 1. Measure the reference
 
-Pull it whole with `find-youtube-clips-and-quotes`. Its `pull.mjs <url> --probe` shows the length first, and `pull.mjs <url> --name ref` downloads a short reel whole. Then build rulers before you look:
+Load the `find-youtube-clips-and-quotes` skill and run its `scripts/pull.mjs`. `${CLAUDE_SKILL_DIR}` points at the current skill's folder only, so use that skill's folder in the path. `pull.mjs <url> --probe` shows the length first, and `pull.mjs <url> --name ref` downloads a short reel whole. Then build rulers before you look:
 
 - `ffmpeg -vf "scdet=threshold=7,signalstats"` over every frame gives hard cuts, flashes and grayscale stretches in seconds. Write them to `analysis/reference.json`.
 - Contact sheets: a 2 fps overview, then 10 fps only around flagged moments. Use a `trim` filter for a window; `-ss` as an output option groups frames from t=0.
@@ -74,3 +75,7 @@ Run `aimv-checks` on every candidate before anyone watches it. Write the recipe 
 - Video references must be HTTPS URLs. Use signed URLs that expire within a day (R2 or S3 presigned), never a public bucket, and delete the objects when the reel ships. The references carry broadcast footage and a real person's face.
 - Wan can hallucinate a flash frame at the end of a take. Step through the last frames.
 - Random effects must match across reruns. Fix the generator's starting value, and keep the order of calls that draw from it.
+
+## About
+
+Made free and open source by [Arcmira](https://arcmira.com), the search engine for what people say in podcasts and videos. This skill is one of the [Claude video editing skills](https://github.com/zealous1/claude-video-editing-skills), written while making real hype edits and AI music videos. Shipped by [Zeal](https://x.com/zealcaiden).

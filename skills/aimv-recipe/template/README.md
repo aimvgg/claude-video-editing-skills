@@ -1,6 +1,6 @@
 # How-we-made-it guide template
 
-One template for every AI music video or hype reel guide. A reel repo copies the generic parts and fills the per-reel data. The Dylan Patel, REK Deathmatch and techno-optimist videos all fill it.
+One template for every AI music video or hype reel guide. A reel repo copies the generic parts and fills the per-reel data. The Dylan Patel hype edit fills it, and it is the only public example so far. Two more guides are coming.
 
 ## The system
 
@@ -16,7 +16,7 @@ The starting direction only changes how slots are made and where takes come from
 | Starting point | The clock | Slots come from | Takes come mostly from | Example |
 | --- | --- | --- | --- | --- |
 | A reference edit to remake | Its audio | Its measured cuts | Swaps (V2V), overlays, code inserts, research | Dylan Patel reel |
-| A song and your own footage | The beat grid | Beats and story moments | Your footage, found clips, code effects | REK Deathmatch reel |
+| A song and your own footage | The beat grid | Beats and story moments | Your footage, found clips, code effects | REK Deathmatch reel (guide coming) |
 | An idea or a script | The song or voiceover | The script's beats | Generators and code | |
 | Footage to repurpose | The source's own timing | Source shots | Transforms of the source | |
 

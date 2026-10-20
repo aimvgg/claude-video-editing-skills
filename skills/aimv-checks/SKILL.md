@@ -21,7 +21,7 @@ It fails on:
 
 - **Frame count** different from the plan. ffmpeg `-shortest` once cut 3 frames off a 902-frame reel. Drop `-shortest` and trim to the planned frame count yourself.
 - **Audio shorter than video** by more than a frame, or **a silent tail**. A mix filter (`amix`, sidechain) ended early once and the last second went silent in the shipped file.
-- **Loudness** off target (pass `--lufs`; -14 for most platforms, or the reference's own level when you remake an edit) and **true peak** above -1 dBTP, measured on the encoded file. AAC at 320k raised the true peak; 256k did not.
+- **Loudness** off target and **true peak** above -1 dBTP, measured on the encoded file. The script checks -14 LUFS unless you pass `--lufs`. Use -14 for most platforms, or the reference's own level when you remake an edit. AAC at 320k raised the true peak; 256k did not.
 - **Browser playability.** H.264 above level 5.1 (for example a CRF 8 master at level 6.2) fails to decode in Chrome. Keep the master for a desktop player and make a share copy: H.264 High, level 4.2 for 1080p30, `yuv420p`, `+faststart`, about CRF 19 capped near 20 Mbps.
 
 `--cuts` lists every frame scoring over 7 on `scdet`. Compare it with the cuts you planned. An extra cut means a shot runs into the next shot of its source.
@@ -41,3 +41,7 @@ Compare against the reference or the previous cut: momentary and short-term loud
 ## 4. Rights and consent ledger
 
 Before anything is shared, every clip in the edit has a row with its public URL, source seconds and what it is used for. Every real person who is swapped or impersonated has consent recorded. Commercial music, sports and film footage are flagged so the user decides where to post. The ledger is what the recipe cites.
+
+## About
+
+Made free and open source by [Arcmira](https://arcmira.com), the search engine for what people say in podcasts and videos. This skill is one of the [Claude video editing skills](https://github.com/zealous1/claude-video-editing-skills), written while making real hype edits and AI music videos. Shipped by [Zeal](https://x.com/zealcaiden).

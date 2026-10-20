@@ -1,6 +1,6 @@
 # Claude video editing skills
 
-Six Claude Code skills for hype edits and AI music videos. They find the second someone said a line and cut it between words, remake a reference edit shot for shot, cut footage on the beat, and check the render before you post it.
+Five Claude Code skills for hype edits and AI music videos. They find the second someone said a line and cut it between words, remake a reference edit shot for shot, transform single shots, and check the render before you post it.
 
 <p align="center"><img src="https://github.com/zealous1/dylan-patel-hype-edit/raw/master/assets/newspaper-to-podcast.gif" width="520" alt="The podcast section of the Dylan Patel reel, where each clip shows the search that found it"></p>
 
@@ -19,55 +19,52 @@ In Claude Code:
 ```
 /plugin marketplace add zealous1/claude-video-editing-skills
 /plugin install video-editing-skills@claude-video-editing-skills
-/mcp
 ```
 
-The plugin also registers the Arcmira MCP server, and the last line signs you in to it. [Arcmira](https://arcmira.com) is a search engine for what people say in podcasts and videos. It knows who is speaking, so a search can ask for one person's own words, and it returns the second each line starts. In `/mcp`, pick arcmira and sign in. A Free account works.
+The plugin registers one optional MCP server, Arcmira, which the clip finder uses to search podcasts by speaker. Sign in with `/mcp` when you want it, or leave it off.
 
-Zeal builds Arcmira. Only `find-youtube-clips-and-quotes` uses it, and it falls back to plain URLs without it. If a video or channel you need is not in the index, the skill offers to ask Arcmira to add it through `arcmira_feedback`.
+On your machine you need `ffmpeg`, Node 20 or newer, `uv`, Python 3 and Google Chrome, which renders headless. On a Mac, run `brew install ffmpeg node uv`. A remake also needs the Python packages librosa, demucs, opencv-python-headless and mediapipe, an R2 or S3 bucket for signed URLs, and a Modal account for upscales.
 
-If you added Arcmira yourself before, Claude Code keeps your server and hides the plugin's copy. Without the plugin, connect it from your shell:
+## The skills
+
+`aimv` stands for AI music video. The table follows the order of a real edit, and most edits start with `find-youtube-clips-and-quotes`. Other agents that read `SKILL.md` files can load the folders under `skills/` directly.
+
+| Stage | Skill | Use it for | Say something like |
+| --- | --- | --- | --- |
+| 1. Find the moments | [`find-youtube-clips-and-quotes`](skills/find-youtube-clips-and-quotes/SKILL.md) | Find the second someone said a line, by speaker, and cut the span between words | "Find three clips of Jensen Huang saying 'accelerated computing' since 2024" |
+| 2. Build the cut from a reference | [`aimv-recreate-reference-edit`](skills/aimv-recreate-reference-edit/SKILL.md) | A shot-for-shot remake of a reference edit with a new subject, against the reference's own clock | "Remake this TikTok edit with our founder in it" |
+| 3. Shape each shot | [`aimv-repurpose`](skills/aimv-repurpose/SKILL.md) | One-shot transforms: podcast clips that pop, subject swaps, voice removal, sign cleanup, upscale, frame rate, film look | "Make these podcast clips hit on the beat" |
+| 4. Gate the render | [`aimv-checks`](skills/aimv-checks/SKILL.md) | Gates every render before anyone watches it: frames, audio to the last frame, loudness, true peak, browser playback | "Is the render ready to post?" |
+| 5. Write the recipe, and read others' first | [`aimv-recipe`](skills/aimv-recipe/SKILL.md) | Look up how other AI music videos were made on AIMV, and write your own recipe and entry | "Write up how we made it" |
+
+Before choosing any model, check the current leaders on [aimv.gg/generators](https://aimv.gg/generators).
+
+### Searching by speaker
+
+[Arcmira](https://arcmira.com) knows who is speaking in podcasts and videos, so the clip finder can ask for one person's own words and get the second each line starts. To use it, run `/mcp`, pick arcmira and sign in. A Free account works. Without it, the clip finder cuts by URL and searches YouTube by title.
+
+Without the plugin, connect Arcmira from your shell, then run `/mcp` and sign in:
 
 ```
 claude mcp add --scope user --transport http arcmira https://mcp.arcmira.com/mcp
 ```
-
-Then run `/mcp` in Claude Code and sign in. Other hosts: https://arcmira.com/docs/mcp-server
-
-On your machine you need `ffmpeg`, Node 20 or newer, `uv` and Python 3, and Google Chrome to render. On a Mac, run `brew install ffmpeg node uv`.
-
-Other agents that read `SKILL.md` files can load the folders under `skills/` directly.
-
-## The skills
-
-`aimv` stands for AI music video. Most edits start with `find-youtube-clips-and-quotes`.
-
-| Skill | Use it for | Say something like |
-| --- | --- | --- |
-| [`find-youtube-clips-and-quotes`](skills/find-youtube-clips-and-quotes/SKILL.md) | Find the moment someone said something, by speaker, with the Arcmira MCP, then pull the exact span with yt-dlp | "Find three clips of Jensen Huang saying 'accelerated computing' since 2024" |
-| [`aimv-recreate-reference-edit`](skills/aimv-recreate-reference-edit/SKILL.md) | A shot-for-shot remake of a reference edit with a new subject, against the reference's own clock | "Remake this TikTok edit with our founder in it" |
-| [`aimv-repurpose`](skills/aimv-repurpose/SKILL.md) | One-shot transforms: podcast clips that pop, subject swaps, voice removal, sign cleanup, upscale, frame rate, film look | "Make these podcast clips hit on the beat" |
-| [`aimv-checks`](skills/aimv-checks/SKILL.md) | Gates every render before anyone watches it: frames, audio to the last frame, loudness, true peak, browser playback | "Is the render ready to post?" |
-| [`aimv-recipe`](skills/aimv-recipe/SKILL.md) | Look up how other AI music videos were made on AIMV, and write your own recipe and entry | "Write up how we made it" |
-
-Before choosing any model, check the current leaders on [aimv.gg/generators](https://aimv.gg/generators).
 
 ## Your first prompt
 
 Paste this and fill in the brackets:
 
 ```
-Make me a 30 second 9:16 hype edit of [person] from their podcast clips.
-Find 8 moments since 2024 where they say something bold about [topic], and
-show me the quotes and links before you download anything. Cut my picks to
-[song file], run the checks, and stop before anything costs money.
+Find 8 moments since 2024 where [person] says something bold about
+[topic] on a podcast. Show me the quotes and links before you download
+anything. Cut each pick between words. Run the checks on each clip, and
+stop before anything costs money.
 ```
 
 ## What it costs
 
-Arcmira searches use credits from your plan. A search that returns up to 5 passages uses none, and the clip finder keeps searches at 5. Each transcript window it reads uses 4 credits, so one search run uses at most 20. For scale, the Dylan Patel reel used an estimated 1,000 credits over 51 searches, most of it in wide searches of 20 passages.
-
 Cutting, rendering and checks run on your machine. A remake that swaps a person in with a video model bills your own provider account, about $0.50 to $0.90 a shot. The Dylan Patel reel spent $21.54 on image and video generation and $11.94 on GPU time. The skills name the price and wait for your yes before any paid run.
+
+Arcmira searches use credits from your plan. A search that returns up to 5 passages uses none, and the clip finder keeps searches at 5. Each transcript window it reads uses 4 credits, so one search run uses at most 20. For scale, the Dylan Patel reel used an estimated 1,000 credits over 51 searches, most of it in wide searches of 20 passages.
 
 ## Rights and consent
 
@@ -89,3 +86,7 @@ Each video gets the same eight-section guide, and the work turns into Claude Cod
 ## Licence
 
 Apache-2.0.
+
+## About
+
+Made free and open source by [Arcmira](https://arcmira.com), the search engine for what people say in podcasts and videos. These are the [Claude video editing skills](https://github.com/zealous1/claude-video-editing-skills), written while making real hype edits and AI music videos. Arcmira is optional, and every skill works without it. Shipped by [Zeal](https://x.com/zealcaiden).
