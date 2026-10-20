@@ -4,7 +4,7 @@ Six Claude Code skills for hype edits and AI music videos. They find the second 
 
 <p align="center"><img src="https://github.com/zealous1/dylan-patel-hype-edit/raw/master/assets/newspaper-to-podcast.gif" width="520" alt="The podcast section of the Dylan Patel reel, where each clip shows the search that found it"></p>
 
-**[Watch the Dylan Patel reel](VIDEO_POST_URL)** · [Install](#install) · [The skills](#the-skills) · [How the videos were made](#the-family)
+**[Watch the Dylan Patel reel](https://x.com/zealcaiden/status/2112239444040499475)** · [Install](#install) · [The skills](#the-skills) · [How the videos were made](#the-family)
 
 - Each skill was written from a video that shipped, and each video has its prompts, its code and an eight-section guide.
 - You do not need to know FFmpeg or WebGL. The agent writes and runs the code.

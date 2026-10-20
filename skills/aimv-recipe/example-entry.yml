@@ -10,7 +10,7 @@ artist:
   x: zealcaiden # required, the X handle without @
 video:
   # required
-  url: VIDEO_POST_URL # required, the X, YouTube or Vimeo post
+  url: https://x.com/zealcaiden/status/2112239444040499475 # required, the X, YouTube or Vimeo post
   duration_s: 30
   aspect: "16:9"
 kind: [ hype-edit ] # required, 1 to 3 kind ids
