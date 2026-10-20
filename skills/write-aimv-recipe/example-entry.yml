@@ -1,0 +1,239 @@
+# yaml-language-server: $schema=../../schema/video.json
+# A complete entry: the Dylan Patel hype video, as it goes into aimvgg/awesome-ai-music-videos at
+# entries/videos/zealcaiden--dylan-patel-hype-video.yml. Lines marked "required" must be present.
+# references/entry-fields.md lists every field.
+type: video # required, always "video"
+title: Dylan Patel hype video # required, at most 80 characters
+artist:
+  # required
+  name: Zeal Caiden
+  x: zealcaiden # required, the X handle without @
+video:
+  # required
+  url: https://x.com/zealcaiden/status/2112239444040499475 # required, the X, YouTube or Vimeo post
+  duration_s: 30
+  aspect: "16:9"
+kind: [ hype-edit ] # required, 1 to 3 kind ids
+tags: [ remix, beat-sync ]
+rating: general
+made_with:
+  # required
+  method: hybrid # required: code-rendered, generative, hybrid or edit
+  agent: claude-code
+  models: [ claude-opus-5-5, wan-3-0 ] # required, at least one model id
+  frameworks: [ python, canvas ]
+  tools: [ arcmira, yt-dlp, ffmpeg, demucs, whisper, librosa, openrouter ]
+  repos: [ ByteDance-Seed/SeedVR, hzwer/Practical-RIFE ]
+  notes: A beat-for-beat remake of a 30 s basketball edit with Dylan Patel swapped in by Wan 3.0 video-to-video from a GPT Image 2.5 Sunburst character sheet, a newspaper rendered in headless Chrome, and a podcast section where every clip was found by an Arcmira MCP search shown on screen. OpenCV and MediaPipe did the face tracking and mattes, and SeedVR2 7B on Modal upscaled six shots.
+clips:
+  - from: https://www.youtube.com/watch?v=_g0Bx6o58aE
+    used: audio+video
+    what: "The edit this remakes: LeBron James - How it go (NBA EDIT) 4k, by Zweng. Its cuts, timing, camera moves and audio bed"
+    found:
+      via: url
+      note: The reference edit the remake follows
+  - from: https://www.youtube.com/watch?v=xWRPXY8vLY4&t=2006
+    at_s: 2006.3
+    len_s: 0.39
+    used: audio+video
+    speaker: Dylan Patel
+    what: Dylan Patel on GPT-5’s Router Moment, GPUs vs TPUs, Monetization, a16z
+    found:
+      call: search
+      input:
+        limit: 20
+        query: nvidia
+        speakerIds:
+          - ent_140776
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=cHgCbDWejIs&t=1942
+    at_s: 1942.6
+    len_s: 0.42
+    used: audio+video
+    speaker: Dylan Patel
+    what: "Dylan Patel: GPT4.5's Flop, Grok 4, Meta's Poaching Spree, Apple's Failure, and Super Intelligence, Matthew Berman"
+    found:
+      call: search
+      input:
+        limit: 20
+        query: nvidia
+        speakerIds:
+          - ent_140776
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=vvlE8-MzxyA&t=699
+    at_s: 699.4
+    len_s: 0.42
+    used: audio+video
+    speaker: Dylan Patel
+    what: Dylan Patel on the AI Chip Race - NVIDIA, Intel & the US Government vs. China, a16z
+    found:
+      call: search
+      input:
+        limit: 20
+        query: nvidia
+        speakerIds:
+          - ent_140776
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=mDG_Hx3BSUE&t=8582
+    at_s: 8582.5
+    len_s: 0.39
+    used: audio+video
+    speaker: Dylan Patel
+    what: Dylan Patel - The Single Biggest Bottleneck to Scaling AI Compute, Dwarkesh Patel
+    found:
+      call: search
+      input:
+        limit: 20
+        query: nvidia
+        speakerIds:
+          - ent_140776
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=jw_o0xr8MWU&t=3908
+    at_s: 3908
+    len_s: 1.26
+    used: audio+video
+    speaker: Jensen Huang
+    what: NVIDIA GTC Keynote 2026, NVIDIA
+    found:
+      call: search
+      input:
+        query: semianalysis
+        speakerIds:
+          - ent_122115
+        limit: 3
+      in: https://www.youtube.com/watch?v=jIviHI7fqyc
+      note: Found by a web search for SemiAnalysis news, done for the newspaper headlines. Zeal builds Arcmira and added the keynote to the index with a Premium transcript that labels Jensen. This search ran after that and finds the moment in another upload of the keynote
+  - from: https://www.youtube.com/watch?v=kBCpm1fYrnw&t=7965
+    at_s: 7965.8
+    len_s: 0.42
+    used: audio+video
+    speaker: Dylan Patel
+    what: 🔵 Live From Cisco AI Summit, TBPN
+    found:
+      call: search
+      input:
+        limit: 20
+        query: nvidia
+        speakerIds:
+          - ent_140776
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=aV26V1UvkJw&t=3286
+    at_s: 3286.3
+    len_s: 0.39
+    used: audio+video
+    speaker: Dylan Patel
+    what: Dylan Patel – Two labs will soon control most of the world's workforce, Dwarkesh Patel
+    found:
+      call: search
+      input:
+        limit: 10
+        query: trillion
+        speakerIds:
+          - ent_140776
+        channelIds:
+          - UCXl4i9dYBrFOabk0xGmbkRA
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=_1f-o0nqpEI&t=17284
+    at_s: 17284
+    len_s: 0.42
+    used: audio+video
+    speaker: Dylan Patel
+    what: "DeepSeek, China, OpenAI, NVIDIA, xAI, TSMC, Stargate, and AI Megaclusters | Lex Fridman Podcast #459, Lex Fridman"
+    found:
+      call: search
+      input:
+        limit: 5
+        query: stargate
+        channelIds:
+          - UCSHZKyawb77ixDdsGog4iWA
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=pE3KKUKXcTM&t=2038
+    at_s: 2038
+    len_s: 0.81
+    used: audio+video
+    speaker: Dylan Patel
+    what: "@Asianometry & Dylan Patel - How the semiconductor industry actually works, Dwarkesh Patel"
+    found:
+      call: search
+      input:
+        limit: 10
+        query: huawei
+        speakerIds:
+          - ent_140776
+        channelIds:
+          - UCXl4i9dYBrFOabk0xGmbkRA
+        after: "2024-01-01"
+  - from: https://www.youtube.com/watch?v=E5B0cS6XRkg&t=5202
+    at_s: 5202.5
+    len_s: 0.42
+    used: audio+video
+    speaker: Dylan Patel
+    what: "Dylan Patel: AI in War, Jobs are Cooked, Chinese Hacking, Microsoft Cope, and Super Intelligence, Matthew Berman"
+    found:
+      call: search
+      input:
+        limit: 10
+        query: insane
+        speakerIds:
+          - ent_140776
+        channelIds:
+          - UCawZsQWqfGSbCI5yjkdVkTA
+        after: "2024-01-01"
+audio:
+  tracks:
+    - title: How it go
+      artist: Yeat
+      role: music
+      source: existing
+    - title: Announcer lines
+      role: voiceover
+      source: recorded
+      generator: human
+process:
+  guide: [ https://github.com/zealous1/dylan-patel-hype-video ]
+  steps:
+    - part: research
+      tool: ffmpeg
+      did: Measured every cut, flash and flicker of the reference edit frame by frame before looking at it.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#1-measure-the-reference
+    - part: research
+      tool: arcmira
+      did: Found each podcast beat with an Arcmira search, most on Dylan's speaker id, one episode per beat, and printed the search on screen.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#2-find-every-podcast-beat-by-search
+    - part: vocals
+      tool: demucs
+      did: Kept the original mix and replaced only the announcer's words with Zeal's own recorded lines.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#3-swap-only-the-announcers-words
+    - part: stills
+      tool: openrouter
+      did: Built a six-view character sheet, then a start and end frame for every swapped shot.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#4-draw-the-character-sheet-and-the-start-frames
+    - part: motion
+      model: wan-3-0
+      did: Swapped Dylan into each shot by video-to-video, with the slowed source span, the sheet and both frames as references.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#5-swap-dylan-in-shot-by-shot
+    - part: edit
+      tool: claude-code
+      did: Graded each generated take frame by frame to match the reference and redrew the scorebug and banners in code.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#6-grade-every-take-to-the-reference
+    - part: graphics
+      tool: claude-code
+      did: Rendered the newspaper as an HTML canvas page, frame by frame in headless Chrome.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#7-render-the-newspaper
+    - part: edit
+      tool: claude-code
+      did: Cut ten podcast clips, nine of Dylan and one of Jensen, into 7 s with a face-matched zoom-through and a halation wrap on a person matte.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#8-cut-the-podcast-section
+    - part: render
+      did: Upscaled the six softest shots with SeedVR2 7B at 1440, then Lanczos to 1080.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#10-upscale-the-soft-shots
+    - part: render
+      tool: ffmpeg
+      did: Assembled at 30 fps with a film look borrowed from the reference's flicker and a name-burn opener.
+      source: https://github.com/zealous1/dylan-patel-hype-video/blob/master/RECIPE.md#11-assemble-add-the-film-look-and-the-opener
+  time_spent: Two days, 16 to 17 Oct 2026 (Pacific)
+  cost: $21.54 of logged image and video generation plus $11.94 of logged GPU time (SeedVR2 and RIFE on Modal). Claude Code used 3,040 Claude Opus 5.5 replies across the main chat and 24 helper agents, with 2.6M output tokens and 652M cache-read tokens. Claude Code ran on one Claude subscription; at Claude API list prices the tokens would come to about $278.
+source_repo: https://github.com/zealous1/dylan-patel-hype-video
+people: [ Dylan Patel, Jensen Huang ]
+evidence: source-repo # required: artist-post, source-repo, prompt-only or third-party
+i_am_the_artist: true # required

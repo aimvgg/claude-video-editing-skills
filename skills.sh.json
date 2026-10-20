@@ -1,0 +1,24 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Find and restyle",
+      "description": "Find the moments, rebuild a reference video around them, and swap a person into the shots.",
+      "skills": [
+        "find-youtube-clips-and-quotes",
+        "restyle-reference-video",
+        "v2v-video-to-video-swap"
+      ]
+    },
+    {
+      "title": "Finish and publish",
+      "description": "Clean up and finish each shot, gate the render, and write up how it was made.",
+      "skills": [
+        "clean-up-ai-video",
+        "check-video-render",
+        "write-aimv-recipe"
+      ]
+    }
+  ]
+}

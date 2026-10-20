@@ -1,10 +1,10 @@
 {
-  "name": "video-editing-skills",
-  "description": "Skills for hype edits and AI music videos. Find the second someone said a line and cut it between words, remake a reference edit shot for shot, transform footage shot by shot, check the render, and write up the recipe.",
-  "version": "0.2.1",
+  "name": "aimv",
+  "description": "AIMV (AI Music Videos) video editing skills for hype videos and AI music videos. Find the second someone said a line and cut it between words, restyle a reference video shot for shot, swap a person into a clip with video-to-video, clean up and finish AI shots, check the render, and write up the recipe.",
+  "version": "0.3.0",
   "author": { "name": "Zeal Caiden" },
-  "homepage": "https://github.com/zealous1/claude-video-editing-skills",
-  "repository": "https://github.com/zealous1/claude-video-editing-skills",
+  "homepage": "https://github.com/aimvgg/claude-video-editing-skills",
+  "repository": "https://github.com/aimvgg/claude-video-editing-skills",
   "license": "Apache-2.0",
-  "keywords": ["video-editing", "hype-edit", "hype-video", "ai-music-video", "youtube-clips", "ffmpeg", "aimv", "arcmira", "mcp"]
+  "keywords": ["video-editing", "hype-edit", "hype-video", "ai-music-video", "music-video", "video-to-video", "v2v", "youtube-clips", "ffmpeg", "aimv", "arcmira", "mcp"]
 }

@@ -67,14 +67,14 @@ node "<skill folder>/scripts/pull.mjs" "https://www.youtube.com/watch?v=mDG_Hx3B
 Every read uses credits from the user's Arcmira plan:
 
 - A search uses 4 credits for each passage past the first 5.
-- A captions transcript read uses 4 credits per 15 minutes of the `start` to `end` window. Pass a window, never the whole video.
-- Premium transcripts (`quality=premium`) are diarized and spelled better, but cost 300 credits per 15 minutes of the whole video. Use them only when the user asks.
+- A captions transcript read uses 4 credits per started 15 minutes of the `start` to `end` window. Pass a window, never the whole video.
+- Premium transcripts (`quality=premium`) are diarized and spelled better, and use 300 credits per started 15 minutes of the whole video. Use them only when the user asks.
 - On the Free plan the newest 30 days are not served, and a window that starts inside them is refused with `freshness_requires_paid`.
 - The API reports a blocked read with a code such as `quota_exceeded` and an `unlock` link. Pass that on to the user and stop.
 
 ## Worked example (2026-10-16)
 
-The goal was hype lines from Dylan Patel for a SemiAnalysis reel.
+The goal was hype lines from Dylan Patel for a SemiAnalysis hype video.
 
 1. Resolving "Dylan Patel" with context SemiAnalysis gave `best` = `ent_140776` (188 mentions, 38 of them appearances).
 2. A `by` search for "nvidia" since 2024 found him on Dwarkesh Patel's "The Single Biggest Bottleneck to Scaling AI Compute" at 8581 s: "Huawei has cracked software engineers. Huawei has cracked networking technologies."

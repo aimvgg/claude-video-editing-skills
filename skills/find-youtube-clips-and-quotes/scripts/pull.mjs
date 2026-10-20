@@ -5,26 +5,34 @@
 //   node pull.mjs "ytsearch10:<query>" --probe
 //   node pull.mjs <url> [--from 8578 --to 8590 | --whole] [--pad 0.5] [--out clips] [--name dylan-huawei]
 //     [--used audio|video|audio+video] [--speaker "Dylan Patel"] [--found '{"call":"search","input":{...}}']
+//     [--cookies-from-browser chrome]
 // --probe prints each video's id, length, rough download size and title, and downloads nothing.
 // --from and --to are source seconds and come as a pair. Without them the whole video downloads, and a video over
 // 10 minutes needs --whole, so a long download is always a choice.
 // --found records how the clip was found (the Arcmira call and its input, the upload it was found in, or a note), so the
 // recipe can say so. Without it the clip is logged as found manually. --used says what the edit takes from the clip
-// (default audio+video).
+// (default audio+video). --speaker names the person, and becomes the clip's title on its recipe page.
+// --cookies-from-browser hands that browser's cookies to yt-dlp for a login wall. Use it only with the user's agreement.
 // Run it from the project folder. It writes <out>/<name>/clip.mp4, info.json and sheet.jpg under the current folder,
 // prints a JSON summary, and appends a row to <out>/clips.json. It refuses to write inside the skill's own folder.
-// Needs ffmpeg and either uv (preferred; runs the yt-dlp release pinned by YTDLP_VERSION) or yt-dlp on PATH.
+// Needs ffmpeg, ffprobe and either uv (preferred; runs the yt-dlp release pinned by YTDLP_VERSION) or yt-dlp on PATH.
+// Env: YTDLP_VERSION (default 2026.8.19) and YTDLP_EXCLUDE_NEWER (default three days after that release).
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const argv = process.argv.slice(2);
+if (argv.includes('--help') || argv.includes('-h')) {
+  const lines = fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n');
+  console.log(lines.slice(1, lines.findIndex((l, i) => i > 0 && !l.startsWith('//'))).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
+  process.exit(0);
+}
 const BOOL = new Set(['--probe', '--whole']);
 const url = argv.find((a, i) => !a.startsWith('--') && (i === 0 || !argv[i - 1].startsWith('--') || BOOL.has(argv[i - 1])));
 const flag = (k, d) => (argv.includes(`--${k}`) ? argv[argv.indexOf(`--${k}`) + 1] : d);
 const fail = (msg, code = 2) => { console.error(msg); process.exit(code); };
-if (!url) fail('usage: node pull.mjs <url> [--probe] [--from s --to s | --whole] [--pad s] [--out dir] [--name slug]');
+if (!url) fail('usage: node pull.mjs <url> [--probe] [--from s --to s | --whole] [options]. Run with --help for every option.');
 const probeOnly = argv.includes('--probe');
 const whole = argv.includes('--whole');
 const from = flag('from') === undefined ? null : Number(flag('from'));
@@ -36,10 +44,12 @@ const name = flag('name', `clip-${Date.now()}`).replace(/[^a-z0-9-]/gi, '-');
 const outRoot = path.resolve(process.cwd(), flag('out', 'clips'));
 const used = flag('used', 'audio+video');
 const speaker = flag('speaker') ?? null;
+const cookies = flag('cookies-from-browser') ?? null;
 if (!['audio', 'video', 'audio+video'].includes(used)) fail('--used is audio, video or audio+video');
 let found = { via: 'manual' };
 if (flag('found') !== undefined) {
   try { found = JSON.parse(flag('found')); } catch { fail('--found must be JSON'); }
+  if (!found || typeof found !== 'object' || Array.isArray(found)) fail('--found must be a JSON object');
   found.via ??= found.call ? 'arcmira' : found.in ? 'url' : 'manual';
 }
 
@@ -49,7 +59,7 @@ if (!probeOnly && (outRoot === skillDir || outRoot.startsWith(skillDir + path.se
   fail(`pull.mjs: run it from the project folder; ${path.relative(process.cwd(), outRoot) || '.'} is inside the skill`);
 }
 
-const has = (bin) => spawnSync('which', [bin]).status === 0;
+const has = (bin, arg = '--version') => !spawnSync(bin, [arg]).error;
 const run = (cmd, args) => {
   const r = spawnSync(cmd, args, { encoding: 'utf8', maxBuffer: 1 << 26 });
   if (r.error) throw new Error(`${cmd} failed: ${r.error.message}`);
@@ -68,13 +78,15 @@ const impersonate = /youtu\.?be|^ytsearch/.test(url) ? [] : ['--impersonate', 'c
 let ytdlp;
 if (has('uvx')) {
   ytdlp = ['uvx', [...(EXCLUDE_NEWER ? ['--exclude-newer', EXCLUDE_NEWER] : []),
-    '--from', `yt-dlp[default,curl-cffi]==${YTDLP_VERSION}`, 'yt-dlp', ...impersonate]];
+    '--from', `yt-dlp[default,curl-cffi]==${YTDLP_VERSION}`, 'yt-dlp', ...impersonate,
+    ...(cookies ? ['--cookies-from-browser', cookies] : [])]];
 } else if (has('yt-dlp')) {
   console.error('pull.mjs: uv is not installed, so this runs the yt-dlp on PATH, which is not pinned. Install uv to pin it.');
-  ytdlp = ['yt-dlp', []];
+  ytdlp = ['yt-dlp', [...(cookies ? ['--cookies-from-browser', cookies] : [])]];
 } else {
   fail('pull.mjs: needs uv (preferred) or yt-dlp. On a Mac: brew install uv');
 }
+for (const b of ['ffmpeg', 'ffprobe']) if (!probeOnly && !has(b, '-version')) fail(`pull.mjs: needs ${b}. On a Mac: brew install ffmpeg`);
 const FORMAT = ['-f', 'bv*+ba/b', '-S', 'res:1080,vcodec:h264,acodec:m4a'];
 
 // One JSON line per video: id, length, rough size of the format a download would pick, title, page URL.

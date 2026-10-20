@@ -1,0 +1,70 @@
+{
+  "schema": "reel-storyboard/1",
+  "title": "Example video",
+  "summary": "A four-slot fixture for the storyboard page. Metadata only: no media ships with it.",
+  "aspect": "16:9",
+  "clock": {
+    "kind": "reference",
+    "duration_s": 12,
+    "fps": 30,
+    "bpm": 120,
+    "beat_offset_s": 0,
+    "reference": { "url": "https://example.com/reference-edit", "title": "The reference edit", "offset_s": 42, "media": "media/src/clip.mp4" },
+    "audio": [{ "id": "mix", "label": "Final mix", "media": "media/audio/mix.wav" }],
+    "landmarks": [{ "t": 3, "label": "Drop" }, { "t": 9.5, "label": "Logo" }],
+    "sections": [{ "t0": 0, "t1": 3, "label": "Intro" }, { "t0": 3, "t1": 9.5, "label": "Drop" }, { "t0": 9.5, "t1": 12, "label": "Out" }]
+  },
+  "slots": [
+    {
+      "id": "intro", "label": "Intro wide", "t0": 0, "t1": 3, "section": "Intro", "verdict": "keep",
+      "source": { "url": "https://example.com/reference-edit", "t": 42, "title": "Reference intro" },
+      "takes": [
+        { "id": "original", "label": "Original", "made_with": { "tool": "ffmpeg" }, "cost_usd": null, "status": "picked", "why": "Kept as is.", "plays_reference": true, "media": {}, "public": false, "public_reason": "Third-party footage." }
+      ]
+    },
+    {
+      "id": "swap", "label": "Face swap on the turn", "t0": 3, "t1": 6, "section": "Drop", "verdict": "swap",
+      "note": "The hardest shot in the video.",
+      "takes": [
+        { "id": "focus", "label": "Focus prompt", "made_with": { "model": "a video model", "tool": "a hosted API" }, "cost_usd": 0.4, "status": "picked", "why": "Short beard holds on the turn.", "prompt": "Replace the player with the man in the reference sheet.\nKeep the original motion.", "made_at": "2026-10-11T14:02:00Z",
+          "media": { "video": "media/shots/swap/focus.mp4", "still": "media/shots/swap/focus.png", "span": [0.2, 3.2] },
+          "frames": { "count": 90, "first": "media/starts/swap.png" },
+          "measurements": [
+            { "label": "Face match", "value": 0.81, "note": "Cosine similarity to the sheet, mean over the take.", "series": { "dt": 0.5, "values": [0.84, 0.82, 0.8, 0.77, 0.8, 0.83] } }
+          ],
+          "public": false, "public_reason": "Built from third-party footage." },
+        { "id": "strong", "label": "Strong prompt", "made_with": { "model": "a video model" }, "cost_usd": 0.4, "status": "superseded", "why": "Picked first. The beard goes full on the last turn.", "made_at": "2026-10-10T09:30:00Z", "media": { "video": "media/shots/swap/strong.mp4" }, "public": false, "public_reason": "Built from third-party footage." },
+        { "id": "frames-only", "label": "Frames only", "made_with": { "model": "another video model" }, "cost_usd": 0.28, "status": "failed", "why": "The request returned no output.", "made_at": "2026-10-10T09:00:00Z", "media": {}, "public": true, "public_reason": "No output to ship." }
+      ]
+    },
+    {
+      "id": "pods", "label": "Interview cuts", "t0": 6, "t1": 9.5, "section": "Drop", "verdict": "found",
+      "takes": [
+        { "id": "beat-cuts", "label": "Beat cuts", "made_with": { "tool": "ffmpeg" }, "cost_usd": 0, "status": "picked", "why": "Three interview moments on the beat, cut from one file.", "media": { "video": "media/shots/pods/source.mp4" },
+          "cuts": [
+            { "t0": 0, "t1": 1.2, "label": "Interview A", "span": [10, 11.2], "source": { "url": "https://example.com/interview-a", "t": 600 } },
+            { "t0": 1.2, "t1": 2.4, "label": "Interview B", "span": [40, 41.2] },
+            { "t0": 2.4, "t1": 3.5, "label": "Interview C", "span": [70, 71.1] }
+          ],
+          "public": false, "public_reason": "The clips belong to their shows." }
+      ]
+    },
+    {
+      "id": "logo", "label": "Profile and logo", "t0": 9.5, "t1": 12, "section": "Out", "verdict": "render",
+      "takes": [
+        { "id": "engine", "label": "Engine render", "made_with": { "tool": "a canvas engine" }, "cost_usd": null, "status": "picked", "why": "Built in code from the sheet.", "media": { "video": "media/shots/logo/engine.mp4", "link": "https://example.com/logo" }, "public": true, "public_reason": "Our own code render." }
+      ]
+    }
+  ],
+  "assets": [
+    { "id": "sheet", "label": "Character sheet", "made_with": { "model": "an image model" }, "cost_usd": 0.0412, "status": "picked", "why": "Feeds every swap.", "media": { "still": "media/starts/sheet.png" }, "public": true, "public_reason": "Approved still.", "used_by": ["swap"] }
+  ],
+  "checkpoints": [
+    { "id": "plan", "label": "Plan", "at": "2026-10-09", "note": "A board of stills against the song. No per-slot record was kept." },
+    { "id": "v1", "label": "First pass", "at": "2026-10-10", "picks": { "intro": "original", "swap": "strong", "pods": "beat-cuts" }, "bounds": { "swap": [3, 6.5], "pods": [6.5, 9.5] }, "note": "No logo yet; the swap ran long." },
+    { "id": "v2", "label": "Shipped", "at": "2026-10-12", "picks": { "intro": "original", "swap": "focus", "pods": "beat-cuts", "logo": "engine" },
+      "render": { "media": "media/master/v2.mp4", "label": "v2 master", "link": "https://example.com/watch/v2" },
+      "measurements": [{ "label": "Loudness", "value": -14.1, "unit": "LUFS" }, { "label": "True peak", "value": -1.8, "unit": "dBTP" }],
+      "note": "The focus take fixed the beard." }
+  ]
+}
